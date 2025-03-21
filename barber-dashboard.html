@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Logotipo/LogoGrande.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Georgia&display=swap" rel="stylesheet">
+    <title>Painel de Controle - Rotation Barber</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #2c1f1a;
+            color: #b3a29b;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #5a3f2f;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: #b3a29b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #eda276;
+        }
+
+        .logout-btn {
+            background: #eda276;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #b38062;
+        }
+
+        .dashboard-container {
+            padding: 20px;
+        }
+
+        .tabs {
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: #7a5a47;
+            color: #b3a29b;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #eda276;
+            color: #fff;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #8a5d43;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #5a3f2f;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #7a5a47;
+        }
+
+        th {
+            background: #7a5a47;
+            color: #fff;
+        }
+
+        td button {
+            background: #eda276;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-right: 5px;
+            transition: background 0.3s ease;
+            font-size: 12px;
+        }
+
+        td button.edit {
+            background: #eda276;
+        }
+
+        td button.edit:hover {
+            background: #b38062;
+        }
+
+        td button.cancel {
+            background: #ff5555;
+        }
+
+        td button.cancel:hover {
+            background: #cc4444;
+        }
+
+        td button.confirm {
+            background: #28a745;
+        }
+
+        td button.confirm:hover {
+            background: #218838;
+        }
+
+        td button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #5a3f2f;
+            padding: 20px;
+            border-radius: 10px;
+            color: #b3a29b;
+            width: 300px;
+            position: relative;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #e58f65;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal-btn:hover {
+            color: #eda276;
+        }
+
+        .modal-content label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background: #2c1f1a;
+            color: #b3a29b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="Logotipo/LogoGrande.png" alt="Rotation Barber Logo">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">Sobre Nós</a></li>
+                <li><a href="index.html#servicos">Serviços</a></li>
+                <li><a href="index.html#pricing">Preços</a></li>
+                <li><a href="index.html#gallery">Galeria</a></li>
+                <li><a href="index.html#team">Equipa</a></li>
+            </ul>
+        </nav>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </header>
+
+    <div class="dashboard-container">
+        <h1>Painel de Controle - Rotation Barber</h1>
+        <p>Gerencie agendamentos e serviços aqui.</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('appointments')">Agendamentos</button>
+            <button class="tab-btn" onclick="openTab('services')">Serviços</button>
+        </div>
+
+        <div id="appointments" class="tab-content active">
+            <h2>Lista de Agendamentos</h2>
+            <table class="appointments-table" id="appointmentsTable">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Barbeiro</th>
+                        <th>Serviço</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Pagamento</th>
+                        <th>Estado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div id="services" class="tab-content">
+            <h2>Gerenciar Serviços</h2>
+            <table class="services-table" id="servicesTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Modal para edição de agendamento -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal-btn" onclick="closeModal()">×</span>
+                <h3>Editar Agendamento</h3>
+                <input type="hidden" id="editAppointmentId">
+                <label>Data:
+                    <input type="date" id="editDate" required>
+                </label>
+                <label>Horário:
+                    <select id="editTime" required></select>
+                </label>
+                <button class="modal-action-btn" onclick="saveEditedAppointment()">Salvar</button>
+                <button class="modal-action-btn cancel" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch('check-session.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success || (data.role !== 'barbeiro' && data.role !== 'admin')) {
+                        alert('Acesso negado. Por favor, faça login como barbeiro ou administrador.');
+                        window.location.href = 'login.html';
+                    } else {
+                        window.userData = data;
+                        loadAppointments();
+                        loadServices();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar sessão:', error);
+                    alert('Erro ao verificar sessão. Tente novamente.');
+                    window.location.href = 'login.html';
+                });
+        });
+
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`.tab-btn[onclick="openTab('${tabName}')"]`).classList.add('active');
+        }
+
+        function logout() {
+            fetch('logout.php', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Logout realizado com sucesso!');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert('Erro ao fazer logout. Tente novamente.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro no logout:', error);
+                    alert('Erro ao conectar ao servidor. Tente novamente.');
+                });
+        }
+
+        function loadAppointments() {
+            fetch('get-appointments.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const tbody = document.querySelector('#appointmentsTable tbody');
+                        tbody.innerHTML = '';
+                        data.appointments.forEach(appointment => {
+                            const row = document.createElement('tr');
+                            let editButtonColor = '#eda276';
+                            let cancelButtonColor = '#ff5555';
+                            let confirmButton = '';
+                            let isEditable = true;
+
+                            if (appointment.estado === 'cancelado') {
+                                cancelButtonColor = '#6c757d';
+                                isEditable = false;
+                            } else if (appointment.estado === 'concluído') {
+                                cancelButtonColor = '#28a745';
+                                isEditable = false;
+                            } else if (appointment.estado === 'pendente') {
+                                confirmButton = `<button class="confirm" onclick="confirmAppointment(${appointment.id})">Confirmar</button>`;
+                            }
+
+                            row.innerHTML = `
+                                <td>${appointment.cliente_email || 'Sem cliente'}</td>
+                                <td>${appointment.barbeiro_nome || 'Sem barbeiro'}</td>
+                                <td>${appointment.servico || 'Sem serviço'}</td>
+                                <td>${appointment.data || 'Sem data'}</td>
+                                <td>${appointment.horario || 'Sem horário'}</td>
+                                <td>${appointment.pagamento === 'local' ? 'Pagar no local' : 'Online'}</td>
+                                <td>${appointment.estado || 'Sem estado'}</td>
+                                <td>
+                                    <button class="edit" onclick="editAppointment(${appointment.id}, '${appointment.data}', '${appointment.horario}', ${appointment.barbeiro_id || 0})" ${!isEditable ? 'disabled' : ''}>Editar</button>
+                                    <button class="cancel" onclick="${appointment.estado === 'confirmado' || appointment.estado === 'pendente' ? `cancelAppointment(${appointment.id})` : ''}" ${!isEditable ? 'disabled' : ''}>Cancelar</button>
+                                    ${confirmButton}
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        alert(data.message || 'Erro ao carregar agendamentos.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar agendamentos:', error);
+                    alert('Erro ao conectar ao servidor. Tente novamente.');
+                });
+        }
+
+        function loadServices() {
+            fetch('get-services.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const tbody = document.querySelector('#servicesTable tbody');
+                        tbody.innerHTML = '';
+                        data.services.forEach(service => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${service.nome}</td>
+                                <td>$${service.preco.toFixed(2)}</td>
+                                <td>${service.categoria}</td>
+                                <td>
+                                    <button onclick="editService(${service.id})">Editar</button>
+                                    <button onclick="deleteService(${service.id})">Excluir</button>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        alert(data.message || 'Erro ao carregar serviços.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar serviços:', error);
+                    alert('Erro ao conectar ao servidor. Tente novamente.');
+                });
+        }
+
+        function editAppointment(appointmentId, currentDate, currentTime, barberId) {
+            document.getElementById('editModal').style.display = 'flex';
+            document.getElementById('editAppointmentId').value = appointmentId;
+            document.getElementById('editDate').value = currentDate || new Date().toISOString().split('T')[0];
+            updateAvailableTimes(barberId, currentDate, appointmentId, currentTime);
+
+            document.getElementById('editDate').addEventListener('change', (e) => {
+                const newDate = e.target.value;
+                updateAvailableTimes(barberId, newDate, appointmentId, currentTime);
+            });
+        }
+
+        function updateAvailableTimes(barberId, date, appointmentId, currentTime) {
+            fetch(`check-availability.php?barber=${barberId}&date=${date}&appointmentId=${appointmentId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Resposta da API:', data); // Depuração
+                    const timeSelect = document.getElementById('editTime');
+                    timeSelect.innerHTML = '';
+                    if (data.success) {
+                        const allTimes = generateTimeSlots(9, 18, 30);
+                        const bookedTimes = data.bookedTimes || [];
+                        const availableTimes = allTimes.filter(time => !bookedTimes.includes(time) || time === currentTime);
+
+                        if (availableTimes.length === 0) {
+                            const option = document.createElement('option');
+                            option.textContent = 'Sem horários disponíveis';
+                            option.disabled = true;
+                            timeSelect.appendChild(option);
+                        } else {
+                            availableTimes.forEach(time => {
+                                const option = document.createElement('option');
+                                option.value = time;
+                                option.textContent = time;
+                                if (time === currentTime) option.selected = true;
+                                timeSelect.appendChild(option);
+                            });
+                        }
+                    } else {
+                        const option = document.createElement('option');
+                        option.textContent = data.message || 'Erro ao carregar horários';
+                        option.disabled = true;
+                        timeSelect.appendChild(option);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar horários:', error);
+                    const timeSelect = document.getElementById('editTime');
+                    timeSelect.innerHTML = '<option value="">Erro ao carregar horários</option>';
+                });
+        }
+
+        function generateTimeSlots(startHour, endHour, interval) {
+            const timeSlots = [];
+            for (let hour = startHour; hour <= endHour; hour++) {
+                for (let minute = 0; minute < 60; minute += interval) {
+                    timeSlots.push(`${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`);
+                }
+            }
+            return timeSlots;
+        }
+
+        function saveEditedAppointment() {
+            const appointmentId = document.getElementById('editAppointmentId').value;
+            const newDate = document.getElementById('editDate').value;
+            const newTime = document.getElementById('editTime').value;
+            const barberId = window.userData.user_id || 0; // Usar o ID do barbeiro logado
+
+            if (!newDate || !newTime) {
+                alert('Por favor, seleciona uma data e horário válidos.');
+                return;
+            }
+
+            fetch('update-appointment.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: appointmentId, data: newDate, horario: newTime, barbeiro_id: barberId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    closeModal();
+                    loadAppointments();
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar agendamento:', error);
+                alert('Ocorreu um erro ao tentar atualizar o agendamento.');
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        function cancelAppointment(id) {
+            if (confirm('Tens a certeza de que queres cancelar este agendamento?')) {
+                const barberId = window.userData.user_id || 0;
+                fetch('cancel-appointment.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, barbeiro_id: barberId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Resposta cancelamento:', data); // Depuração
+                    if (data.success) {
+                        alert('Agendamento cancelado com sucesso!');
+                        loadAppointments();
+                    } else {
+                        alert(data.message || 'Erro ao cancelar agendamento.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao cancelar agendamento:', error);
+                    alert('Erro ao conectar ao servidor. Tente novamente.');
+                });
+            }
+        }
+
+        function confirmAppointment(id) {
+            if (confirm('Tens a certeza de que queres confirmar este agendamento?')) {
+                const barberId = window.userData.user_id || 0;
+                fetch('confirm-appointment.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, barbeiro_id: barberId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Agendamento confirmado com sucesso!');
+                        loadAppointments();
+                    } else {
+                        alert(data.message || 'Erro ao confirmar agendamento.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao confirmar agendamento:', error);
+                    alert('Erro ao conectar ao servidor. Tente novamente.');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

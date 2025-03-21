@@ -1,0 +1,66 @@
+2025-03-11 00:36:48 - Iniciando delete-user.php para ID: N/A
+2025-03-11 00:36:48 - User ID recebido: 17
+2025-03-11 00:36:48 - Usuário excluído com sucesso para ID: 17
+2025-03-11 00:36:56 - Iniciando delete-user.php para ID: N/A
+2025-03-11 00:36:56 - User ID recebido: 17
+2025-03-11 00:36:56 - Usuário não encontrado para ID: 17
+2025-03-11 00:37:02 - Iniciando delete-user.php para ID: N/A
+2025-03-11 00:37:02 - User ID recebido: 17
+2025-03-11 00:37:02 - Usuário não encontrado para ID: 17
+2025-03-11 00:40:46 - Iniciando delete-user.php
+2025-03-11 00:40:46 - User ID recebido: 18
+2025-03-11 00:40:46 - Usuário excluído com sucesso para ID: 18
+2025-03-11 00:45:05 - Iniciando delete-user.php
+2025-03-11 00:45:05 - User ID recebido: 19
+2025-03-11 00:45:05 - Usuário excluído com sucesso para ID: 19. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-11 12:21:49 - Iniciando delete-user.php
+2025-03-11 12:21:49 - User ID recebido: 15
+2025-03-11 12:21:50 - Usuário excluído com sucesso para ID: 15. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-11 23:10:38 - Iniciando delete-user.php
+2025-03-11 23:10:38 - User ID recebido: 1
+2025-03-11 23:10:38 - Usuário excluído com sucesso para ID: 1. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-11 23:12:44 - Iniciando delete-user.php
+2025-03-11 23:12:44 - User ID recebido: 11
+2025-03-11 23:12:44 - Usuário excluído com sucesso para ID: 11. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 00:37:05 - Iniciando delete-user.php
+2025-03-13 00:37:05 - User ID recebido: 21
+2025-03-13 00:37:05 - Usuário excluído com sucesso para ID: 21. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 00:37:09 - Iniciando delete-user.php
+2025-03-13 00:37:09 - User ID recebido: 22
+2025-03-13 00:37:09 - Usuário excluído com sucesso para ID: 22. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 18:14:59 - Iniciando delete-user.php
+2025-03-13 18:14:59 - User ID recebido: 23
+2025-03-13 18:14:59 - Usuário excluído com sucesso para ID: 23. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 18:22:08 - Iniciando delete-user.php
+2025-03-13 18:22:08 - User ID recebido: 26
+2025-03-13 18:22:08 - Usuário excluído com sucesso para ID: 26. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 18:24:20 - Iniciando delete-user.php
+2025-03-13 18:24:20 - User ID recebido: 25
+2025-03-13 18:24:20 - Usuário excluído com sucesso para ID: 25. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 18:24:56 - Iniciando delete-user.php
+2025-03-13 18:24:56 - User ID recebido: 24
+2025-03-13 18:24:56 - Usuário excluído com sucesso para ID: 24. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 18:25:00 - Iniciando delete-user.php
+2025-03-13 18:25:00 - User ID recebido: 24
+2025-03-13 18:25:00 - Usuário não encontrado para ID: 24
+2025-03-13 18:27:26 - Iniciando delete-user.php
+2025-03-13 18:27:26 - User ID recebido: 30
+2025-03-13 18:27:26 - Usuário excluído com sucesso para ID: 30. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 18:30:30 - Iniciando delete-user.php
+2025-03-13 18:30:30 - User ID recebido: 29
+2025-03-13 18:30:30 - Usuário excluído com sucesso para ID: 29. Resposta: {"success":true,"message":"Usu\u00e1rio exclu\u00eddo com sucesso!"}
+2025-03-13 18:31:16 - Iniciando delete-user.php
+2025-03-13 18:31:16 - User ID recebido: 28
+2025-03-13 18:31:16 - Utilizador excluído com sucesso para ID: 28. Resposta: {"success":true,"message":"Utilizador exclu\u00eddo com sucesso!"}
+2025-03-20 23:03:42 - Iniciando delete-user.php
+2025-03-20 23:03:42 - User ID recebido: 20
+2025-03-20 23:03:42 - Utilizador excluído com sucesso para ID: 20. Resposta: {"success":true,"message":"Utilizador exclu\u00eddo com sucesso!"}
+2025-03-20 23:05:15 - Iniciando delete-user.php
+2025-03-20 23:05:15 - User ID recebido: 27
+2025-03-20 23:05:15 - Utilizador excluído com sucesso para ID: 27. Resposta: {"success":true,"message":"Utilizador exclu\u00eddo com sucesso!"}
+2025-03-20 23:05:21 - Iniciando delete-user.php
+2025-03-20 23:05:21 - User ID recebido: 31
+2025-03-20 23:05:21 - Utilizador excluído com sucesso para ID: 31. Resposta: {"success":true,"message":"Utilizador exclu\u00eddo com sucesso!"}
+2025-03-20 23:05:26 - Iniciando delete-user.php
+2025-03-20 23:05:26 - User ID recebido: 32
+2025-03-20 23:05:26 - Utilizador excluído com sucesso para ID: 32. Resposta: {"success":true,"message":"Utilizador exclu\u00eddo com sucesso!"}

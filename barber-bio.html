@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossos Barbeiros</title>
+    <link rel="shortcut icon" href="Logotipo/LogoGrande.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" nomodule></script>
+    <script src="script.js" defer></script>
+    <style>
+        /* Estilos específicos para a bio */
+        body {
+            background: rgb(143, 100, 74);
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bio-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 12%;
+            position: relative;
+            background: linear-gradient(to bottom, rgba(143, 100, 74, 0.9), rgba(138, 93, 67, 0.9)), url('Midia/background-bio.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .bio-content {
+            background: #fff;
+            max-width: 800px;
+            width: 90%;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bio-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .bio-header h1 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .bio-header p {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .bio-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            background: var(--color, #eda276);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bio-details {
+            text-align: center;
+        }
+
+        .bio-details h2 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .bio-details p {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .bio-back-btn {
+            background: #eda276;
+            border: 1px solid #eda276;
+            color: #fff;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .bio-back-btn:hover {
+            background: #e58f65;
+            transform: translateY(-2px);
+        }
+
+        .bio-back-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="bio-container">
+        <div class="bio-content" id="bioContent">
+            <div class="bio-header">
+                <h1>Rotation Barber</h1>
+                <p>Conheça os nossos especialistas</p>
+            </div>
+            <div class="bio-image" id="barberImage"></div>
+            <div class="bio-details" id="barberDetails">
+                <!-- Dados do barbeiro serão preenchidos via JavaScript -->
+            </div>
+            <a href="RotationBarber.html#team" class="bio-back-btn">Voltar</a>
+        </div>
+    </div>
+
+    <script>
+        // Obter o parâmetro da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const barberName = urlParams.get('name');
+
+        // Dados dos barbeiros (substitua por um backend real no futuro)
+        const barbers = {
+            ricardo: {
+                name: "João Lopes",
+                title: "Especialista em Corte e Estilo",
+                image: "Midia/Modelo.png",
+                color: "#e58f65",
+                bio: "João Lopes é um mestre em cortes e estilos, com mais de 10 anos de experiência na arte da barbearia. Conhecido pela precisão e paixão por criar looks únicos, Ricardo transforma cada cliente em um verdadeiro cavalheiro, combinando técnicas modernas com um toque clássico."
+            },
+            andre: {
+                name: "Pedro Monteiro",
+                title: "Barbeiro Profissional Sênior",
+                image: "Midia/Modelo2.png",
+                color: "#eda276",
+                bio: "Pedro Monteiro é um barbeiro sênior com mais de 15 anos de experiência, especializado em cortes e barbas sofisticadas. Seu profissionalismo e atenção aos detalhes fazem dele um favorito entre os clientes da Rotation Barber."
+            },
+            fang: {
+                name: "Carlos Pereira",
+                title: "Especialista em Barbear Clássico",
+                image: "Midia/Modelo3.png",
+                color: "#b38062",
+                bio: "Carlos Pereira é um especialista em barbear clássico, com habilidades excepcionais em técnicas tradicionais. Com uma abordagem meticulosa e produtos de alta qualidade, Fang oferece um serviço impecável e relaxante na Rotation Barber."
+            }
+        };
+
+        // Preencher a bio com base no parâmetro
+        const barber = barbers[barberName];
+        if (barber) {
+            document.getElementById('barberImage').innerHTML = `<img src="${barber.image}" alt="${barber.name}">`;
+            document.getElementById('barberImage').style.setProperty('--color', barber.color); // Define a cor no CSS
+            document.getElementById('barberDetails').innerHTML = `
+                <h2>${barber.name}</h2>
+                <p>${barber.title}</p>
+                <p>${barber.bio}</p>
+            `;
+        } else {
+            document.getElementById('barberDetails').innerHTML = '<p>Barbeiro não encontrado.</p>';
+        }
+
+        // Rolar até #team ao clicar em "Voltar"
+        document.getElementById('backToTeam').addEventListener('click', () => {
+            window.location.href = 'RotationBarber.html#team';
+            setTimeout(() => {
+                const teamSection = document.getElementById('team');
+                if (teamSection) {
+                    teamSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100); // Pequena pausa para garantir o carregamento
+        });
+    </script>
+</body>
+</html>

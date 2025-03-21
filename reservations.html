@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotation Barber</title>
+    <link rel="shortcut icon" href="Logotipo/LogoGrande.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Georgia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <!-- Adicionando Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AbGEyhd3kde1I0ee739z_MvFYklooqR66TJZPbpUUD1wKYQT6OMsnZkTBJuMcHQS71gyMFDDmbc3_cJw&currency=EUR"></script>
+    <style>
+        /* Estilos do Modal de Agendamento (mantidos como no seu código original) */
+        .booking-modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.7); 
+            z-index: 1001; 
+            justify-content: center; 
+            align-items: center; 
+            backdrop-filter: blur(2px);
+        }
+        .booking-content { 
+            background: #2c1f1a; 
+            padding: 30px; 
+            border-radius: 15px; 
+            width: 90%; 
+            max-width: 930px; 
+            position: relative; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); 
+            animation: slideIn 0.5s ease-out; 
+            color: #b3a29b; 
+        }
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateY(-20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            right: 15px; 
+            font-size: 24px; 
+            color: #e58f65; 
+            cursor: pointer; 
+            border: none; 
+            background: none; 
+            transition: color 0.3s ease; 
+        }
+        .close-btn:hover { 
+            color: #eda276; 
+        }
+
+        .booking-steps { 
+            width: 100%; 
+        }
+        .step { 
+            display: none; 
+        }
+        .step.active { 
+            display: block; 
+        }
+        .progress-bar { 
+            display: flex; 
+            align-items: center; 
+            height: 10px; 
+            background: #7a5a47; 
+            margin-bottom: 20px; 
+            border-radius: 5px; 
+            overflow: hidden; 
+        }
+        .progress-bar div { 
+            height: 100%; 
+            transition: width 0.3s ease; 
+        }
+        .progress-bar div.active { 
+            background: #eda276; 
+        }
+        .progress-bar div.inactive { 
+            background: #7a5a47; 
+        }
+        .step-labels { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 10px; 
+            font-size: 14px; 
+            color: #b3a29b; 
+        }
+        .step-labels span { 
+            cursor: pointer; 
+            transition: color 0.3s ease; 
+        }
+        .step-labels span:hover { 
+            color: #e58f65; 
+        }
+        .step-labels span.active { 
+            color: #eda276; 
+            font-weight: 600; 
+        }
+
+        .instruction { 
+            margin-bottom: 20px; 
+            color: #e58f65; 
+            font-size: 16px; 
+        }
+        .selection-grid { 
+            display: grid; 
+            gap: 15px; 
+            margin-bottom: 20px; 
+            grid-template-columns: 1fr; 
+        }
+        .select-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+        }
+        .select-group label { 
+            color: #b3a29b; 
+            font-weight: 600; 
+        }
+        .select-box {
+            padding: 12px; 
+            border: 1px solid #7a5a47; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            background: #2c1f1a; 
+            color: #b3a29b;
+            appearance: none; 
+            cursor: pointer; 
+            outline: none; 
+            width: 100%;
+        }
+        .select-box:focus { 
+            border-color: #eda276; 
+            box-shadow: 0 0 5px #eda276; 
+        }
+        .user-icon {
+            position: relative;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            overflow: hidden;
+        }
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .user-icon:hover img {
+            transform: scale(1.1);
+        }
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: #5a3f2f;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            min-width: 150px;
+            z-index: 1001;
+            padding: 10px 0;
+        }
+        .user-dropdown.active {
+            display: block;
+        }
+        .user-dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: #b3a29b;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease, background 0.3s ease;
+        }
+        .user-dropdown a:hover {
+            color: #fff;
+            background: #e58f65;
+        }
+        .barber-options { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 10px; 
+        }
+        .barber-option {
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 8px; 
+            background: #5a3f2f; 
+            border-radius: 10px; 
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; 
+            border: 1px solid #8a5d43;
+        }
+        .barber-option:hover { 
+            background: #e58f65; 
+            transform: translateY(-2px); 
+            box-shadow: 0 2px 4px rgba(237, 162, 118, 0.4); 
+        }
+        .barber-option.selected { 
+            background: #e58f65; 
+            color: #fff; 
+        }
+        .barber-option .container {
+            position: relative; 
+            width: 40px; 
+            height: 40px; 
+            overflow: hidden; 
+            border-radius: 50%;
+        }
+        .barber-option .circle {
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 100%; 
+            height: 100%;
+            background: var(--color); 
+            opacity: 0.3; 
+            z-index: 0; 
+            border-radius: 50%;
+        }
+        .barber-option img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            position: relative; 
+            z-index: 1; 
+        }
+        .barber-option span { 
+            color: #b3a29b; 
+            font-size: 14px; 
+        }
+
+        .calendar-section { 
+            display: flex; 
+            gap: 20px; 
+            background: #4a3025; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+        }
+        .calendar-wrapper, .time-slots-wrapper { 
+            flex: 1; 
+            min-width: 0; 
+        }
+        .calendar-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 10px; 
+            color: #fff; 
+        }
+        .calendar-header h3 { 
+            font-size: 16px; 
+            font-family: Georgia, serif; 
+            color: #fff; 
+        }
+        .calendar-nav { 
+            display: flex; 
+            gap: 8px; 
+        }
+        .calendar-nav button { 
+            background: #eda276; 
+            color: #fff; 
+            border: none; 
+            padding: 6px 12px; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            transition: background 0.3s ease; 
+            font-size: 12px; 
+        }
+        .calendar-nav button:disabled { 
+            background: #7a5a47; 
+            cursor: not-allowed; 
+        }
+        .calendar-nav button:hover:not(:disabled) { 
+            background: #b38062; 
+        }
+
+        .calendar-grid { 
+            display: grid; 
+            grid-template-columns: repeat(7, 1fr); 
+            gap: 1px; 
+            margin-bottom: 10px; 
+            background: #7a5a47; 
+            border-radius: 5px; 
+            padding: 2px; 
+        }
+        .calendar-day { 
+            padding: 8px; 
+            text-align: center; 
+            background: #5a3f2f; 
+            border-radius: 3px; 
+            cursor: pointer; 
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; 
+            color: #fff; 
+            font-size: 12px; 
+            border: 1px solid #8a5d43; 
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+        }
+        .calendar-day:hover, .calendar-day.selected { 
+            background: #e58f65; 
+            color: #fff; 
+            transform: translateY(-2px); 
+            box-shadow: 0 2px 4px rgba(237, 162, 118, 0.4); 
+        }
+        .calendar-day.disabled, .calendar-day.unavailable { 
+            background: #3c2c24; 
+            color: #b38062; 
+            cursor: not-allowed; 
+            border-color: #5a3f2f; 
+            box-shadow: none; 
+            opacity: 0.6; 
+            pointer-events: none; 
+        }
+        .calendar-day.today { 
+            border: 2px solid #eda276; 
+            background: #5a3f2f; 
+        }
+
+        .time-slots { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); 
+            gap: 8px; 
+            background: #7a5a47; 
+            border-radius: 5px; 
+            padding: 8px; 
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+        }
+        .time-slot { 
+            background: #5a3f2f; 
+            padding: 10px; 
+            border-radius: 6px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; 
+            color: #fff; 
+            border: 1px solid #8a5d43; 
+            font-size: 14px; 
+        }
+        .time-slot:hover, .time-slot.selected { 
+            background: #e58f65; 
+            color: #fff; 
+            transform: translateY(-2px); 
+            box-shadow: 0 2px 4px rgba(237, 162, 118, 0.4); 
+        }
+        .time-slot.unavailable { 
+            background: #3c2c24; 
+            color: #b38062; 
+            cursor: not-allowed; 
+            opacity: 0.6; 
+            pointer-events: none; 
+        }
+        .time-slot input[type="radio"] { 
+            display: none; 
+        }
+        .time-slot label { 
+            cursor: pointer; 
+            display: block; 
+            width: 100%; 
+        }
+
+        #clientForm { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+        }
+        #clientForm input, #clientForm textarea { 
+            padding: 12px; 
+            border: 1px solid #7a5a47; 
+            border-radius: 5px; 
+            font-size: 14px; 
+            color: #b3a29b; 
+            background: #2c1f1a; 
+        }
+        #clientForm textarea { 
+            height: 100px; 
+        }
+        #clientEmail[readonly] { 
+            background: #3c2c24; 
+            cursor: not-allowed; 
+        }
+        .error { 
+            border-color: #ff5555 !important; 
+        }
+
+        .payment-option { 
+            margin: 20px 0; 
+            color: #b3a29b; 
+        }
+        .payment-option input { 
+            margin-right: 10px; 
+        }
+        #card-element {
+    display: none; /* Escondido por padrão, mostrado via JavaScript */
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #2c1f1a; /* Fundo escuro para combinar com o tema */
+    border-radius: 8px;
+    border: 1px solid #7a5a47;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#card-element .StripeElement {
+    padding: 12px;
+    margin-bottom: 10px; /* Espaçamento entre os campos */
+    border: 1px solid #7a5a47;
+    border-radius: 5px;
+    background-color: #4a3025; /* Fundo mais claro para os campos */
+    color: #b3a29b;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    width: 100%; /* Garante que ocupe toda a largura disponível */
+    box-sizing: border-box; /* Inclui padding e borda na largura */
+}
+
+#card-element .StripeElement--focus {
+    border-color: #eda276; /* Destaque ao focar */
+    box-shadow: 0 0 5px #eda276;
+}
+
+#card-element .StripeElement--invalid {
+    border-color: #ff5555; /* Cor de erro */
+}
+
+#payment-errors {
+    color: #ff5555;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Estilo para organizar os campos em uma grade ou coluna */
+#card-element {
+    display: grid;
+    gap: 10px; /* Espaçamento entre os campos */
+    max-width: 400px; /* Limita a largura para evitar que fique muito largo */
+    margin-left: auto;
+    margin-right: auto; /* Centraliza o contêiner */
+}
+        #card-errors {
+            color: #ff5555;
+            margin-top: 10px;
+        }
+        .btn-group { 
+            display: flex; 
+            gap: 10px; 
+            justify-content: space-between; 
+            margin-top: 20px; 
+        }
+        .btn-back, .btn-next, .btn-confirm { 
+            background: #eda276; 
+            color: #fff; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            transition: background 0.3s ease, transform 0.3s ease; 
+            font-size: 14px; 
+            width: 48%; 
+        }
+        .btn-back:disabled, .btn-next:disabled, .btn-confirm:disabled { 
+            background: #7a5a47; 
+            cursor: not-allowed; 
+        }
+        .btn-back:hover:not(:disabled), .btn-next:hover:not(:disabled), .btn-confirm:hover:not(:disabled) { 
+            background: #b38062; 
+            transform: translateY(-2px); 
+        }
+        .summary { 
+            text-align: center; 
+            color: #b3a29b; 
+        }
+        .summary p { 
+            margin: 10px 0; 
+            font-size: 16px; 
+        }
+        .message {
+            padding: 10px; 
+            border-radius: 5px; 
+            font-size: 14px; 
+            font-family: 'Poppins', sans-serif;
+            margin-top: 20px; 
+            display: none;
+        }
+        .success { 
+            background-color: #d4edda; 
+            color: #155724; 
+            border: 1px solid #c3e6cb; 
+        }
+        .error { 
+            background-color: #f8d7da; 
+            color: #721c24; 
+            border: 1px solid #f5c6cb; 
+        }
+
+        @media (max-width: 768px) {
+            .booking-content { 
+                width: 85%; 
+                max-width: 100%; 
+            }
+            .calendar-section { 
+                flex-direction: column; 
+                gap: 15px; 
+            }
+            .calendar-grid, .time-slots { 
+                grid-template-columns: 1fr; 
+            }
+            .calendar-nav { 
+                flex-direction: column; 
+                gap: 5px; 
+            }
+            .calendar-nav button { 
+                width: 100%; 
+            }
+            .btn-group { 
+                flex-direction: column; 
+                gap: 10px; 
+            }
+            .btn-back, .btn-next, .btn-confirm { 
+                width: 100%; 
+            }
+            .selection-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .progress-bar { 
+                height: 8px; 
+            }
+            .step-labels { 
+                font-size: 12px; 
+            }
+            .barber-options { 
+                grid-template-columns: 1fr; 
+            }
+            .barber-option .container { 
+                width: 35px; 
+                height: 35px; 
+            }
+        }
+        .user-icon {
+            width: 30px;
+            height: 30px;
+        }
+        .hero-text h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 80px;
+    line-height: 1;
+    color: #fff;
+    margin: 0 0 40px;
+    margin-top: 50px;
+}
+#paypal-button-container {
+    display: none; /* Escondido por padrão, mostrado via JavaScript */
+    margin-top: 20px;
+    text-align: center; /* Centraliza o conteúdo */
+    width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+}
+
+#paypal-button-container .paypal-buttons {
+    display: inline-block; /* Faz com que o botão PayPal se comporte como um elemento inline-block para centralização */
+    max-width: 300px; /* Limita a largura do botão para evitar que fique muito largo */
+    width: 100%; /* Garante que o botão ocupe o espaço disponível até o limite */
+}
+    </style>
+</head>
+<body id="home">    
+    <!-- Barra de Navegação -->
+    <header>
+        <div class="logo">
+            <img src="Logotipo/LogoGrande.png" alt="Rotation Barber Logo">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="RotationBarber.html">Home</a></li>
+                <li><a href="RotationBarber.html#about">Sobre Nós</a></li>
+                <li><a href="RotationBarber.html#servicos">Serviços</a></li>
+                <li><a href="RotationBarber.html#pricing">Preços</a></li>
+                <li><a href="RotationBarber.html#gallery">Galeria</a></li>
+                <li><a href="#team">Equipa</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Seção Hero -->
+    <section class="hero">
+        <video autoplay muted loop class="background-video">
+            <source src="Midia/Vídeo sem título ‐ Feito com o Clipchamp.mp4" type="video/mp4">
+            Seu navegador não suporta o vídeo.
+        </video>
+        <div class="overlay"></div>
+        <div class="hero-text">
+            <h1>Rotation Barber</h1>
+            <p>"Aqui na Rotation Barber, entras um selvagem e sais um cavalheiro<br>– ou pelo menos pareces!"</p>
+            <a href="#" class="btn-mark-now" onclick="showBookingModal()">Marcar Agora</a>
+            <a href="client-dashboard.php" class="hero-icon"><img src="Icones/Logo papelaria colorido  (512 x 512 px).png" alt="Casa">As minhas Marcações</a>
+        </div>
+    </section>
+
+    <div class="icons">
+        <a href="#" target="_blank"><img src="Icones/instagram-branco.png" alt="Instagram"></a>
+        <a href="#" target="_blank"><img src="Icones/messenger-braco.png" alt="Messenger"></a>
+        <a href="#" target="_blank"><img src="Icones/whatsapp-branco-1.png" alt="WhatsApp"></a>
+        <a href="#" target="_blank"><img src="Icones/icons8-youtube-700.png" alt="YouTube"></a>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column footer-logo">
+                    <img src="Logotipo/LogoGrande.png" alt="Rotation Barber Logo" class="footer-logo-img">
+                    <p class="footer-text">
+                        Na Rotation Barber, transformamos cortes em experiências únicas com estilo e sofisticação.
+                    </p>
+                </div>
+                <div class="footer-column footer-social">
+                    <h3 class="footer-title">Siga-nos</h3>
+                    <ul class="social-links">
+                        <li><a href="#" target="_blank"><img src="Icones/instagram-branco.png" alt="Instagram"> Instagram</a></li>
+                        <li><a href="#" target="_blank"><img src="Icones/messenger-braco.png" alt="Messenger"> Messenger</a></li>
+                        <li><a href="#" target="_blank"><img src="Icones/whatsapp-branco-1.png" alt="WhatsApp"> WhatsApp</a></li>
+                        <li><a href="#" target="_blank"><img src="Icones/icons8-youtube-700.png" alt="YouTube"> YouTube</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column footer-booking">
+                    <h3 class="footer-title">Marcação</h3>
+                    <p class="footer-text">Agende seu horário agora mesmo!</p>
+                    <a href="#" class="btn-mark-now" onclick="showBookingModal()">Marcar Agora</a>
+                </div>
+                <div class="footer-column footer-subscribe">
+                    <h3 class="footer-title">Subscreva</h3>
+                    <p class="footer-text">Receba nossas novidades e promoções.</p>
+                    <form class="subscribe-form" action="subscribe.php" method="post">
+                        <input type="email" name="email" placeholder="Seu email" required>
+                        <button type="submit"><ion-icon name="paper-plane-outline"></ion-icon></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Rotation Barber. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Agendamento -->
+    <div id="bookingModal" class="booking-modal">
+        <div class="booking-content">
+            <span class="close-btn" onclick="closeBookingModal()">×</span>
+            <div class="booking-steps">
+                <!-- Etapa 1: Seleção de Serviço -->
+                <div class="step active" data-step="1">
+                    <div class="step-labels">
+                        <span class="active">1. Serviço</span>
+                        <span>2. Horários</span>
+                        <span>3. Informações do Cliente</span>
+                        <span>4. Pagamento</span>
+                        <span>5. Concluir</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="active" style="width: 20%;"></div>
+                        <div class="inactive" style="width: 80%;"></div>
+                    </div>
+                    <p class="instruction">Por favor, escolha um serviço:</p>
+                    <div class="selection-grid">
+                        <div class="select-group">
+                            <label>Categoria</label>
+                            <select class="select-box" onchange="selectCategory(this.value)">
+                                <option value="">Selecione categoria</option>
+                                <option value="cortes">Cortes</option>
+                                <option value="tratamento-corporal">Tratamento Corporal</option>
+                                <option value="lavagem-facial">Lavagem Facial</option>
+                                <option value="barba">Barba</option>
+                                <option value="spa-de-beleza">Spa de Beleza</option>
+                            </select>
+                        </div>
+                        <div class="select-group">
+                            <label>Serviço</label>
+                            <select class="select-box" id="serviceSelect" onchange="selectService(this.value)" disabled>
+                                <option value="">Selecione serviço</option>
+                            </select>
+                        </div>
+                        <div class="select-group">
+                            <label>Funcionário</label>
+                            <div class="barber-options">
+                                <div class="barber-option" data-value="" style="--color: #7a5a47" onclick="selectBarber('')">
+                                    <div class="container">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <span>Qualquer disponível</span>
+                                </div>
+                                <div class="barber-option" data-value="2" style="--color: #e58f65" onclick="selectBarber('2')">
+                                    <div class="container">
+                                        <div class="circle"></div>
+                                        <img src="Midia/Modelo.png" alt="João">
+                                    </div>
+                                    <span>João</span>
+                                </div>
+                                <div class="barber-option" data-value="3" style="--color: #eda276" onclick="selectBarber('3')">
+                                    <div class="container">
+                                        <div class="circle"></div>
+                                        <img src="Midia/Modelo2.png" alt="Pedro">
+                                    </div>
+                                    <span>Pedro</span>
+                                </div>
+                                <div class="barber-option" data-value="4" style="--color: #b38062" onclick="selectBarber('4')">
+                                    <div class="container">
+                                        <div class="circle"></div>
+                                        <img src="Midia/Modelo3.png" alt="Carlos">
+                                    </div>
+                                    <span>Carlos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-next" onclick="nextStep(2)" disabled>Continuar</button>
+                </div>
+
+                <!-- Etapa 2: Seleção de Horários -->
+                <div class="step" data-step="2">
+                    <div class="step-labels">
+                        <span class="active">1. Serviço</span>
+                        <span class="active">2. Horários</span>
+                        <span>3. Informações do Cliente</span>
+                        <span>4. Pagamento</span>
+                        <span>5. Concluir</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="active" style="width: 40%;"></div>
+                        <div class="inactive" style="width: 60%;"></div>
+                    </div>
+                    <p class="instruction" id="step2Instruction"></p>
+                    <div class="calendar-section">
+                        <div class="calendar-wrapper">
+                            <div class="calendar-header">
+                                <h3 id="monthYear"></h3>
+                                <div class="calendar-nav">
+                                    <button class="prev-btn" id="prevMonthBtn" onclick="prevMonth()">Anterior</button>
+                                    <button class="next-btn" onclick="nextMonth()">Próximo</button>
+                                </div>
+                            </div>
+                            <div id="calendar" class="calendar-grid"></div>
+                        </div>
+                        <div class="time-slots-wrapper">
+                            <div class="time-slots" id="timeSlots"></div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn-back" onclick="prevStep(1)">Voltar</button>
+                        <button class="btn-next" onclick="nextStep(3)" disabled>Continuar</button>
+                    </div>
+                </div>
+
+                <!-- Etapa 3: Informações do Cliente -->
+                <div class="step" data-step="3">
+                    <div class="step-labels">
+                        <span class="active">1. Serviço</span>
+                        <span class="active">2. Horários</span>
+                        <span class="active">3. Informações do Cliente</span>
+                        <span>4. Pagamento</span>
+                        <span>5. Concluir</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="active" style="width: 60%;"></div>
+                        <div class="inactive" style="width: 40%;"></div>
+                    </div>
+                    <p class="instruction" id="step3Instruction"></p>
+                    <form id="clientForm">
+                        <input type="text" id="clientName" name="name" placeholder="Nome completo" required>
+                        <input id="phone" type="tel" name="phone" placeholder="Digite o telefone" required>
+                        <input type="email" id="clientEmail" name="email" placeholder="E-mail" readonly required>
+                    </form>
+                    <div class="btn-group">
+                        <button class="btn-back" onclick="prevStep(2)">Voltar</button>
+                        <button class="btn-next" onclick="nextStep(4)">Continuar</button>
+                    </div>
+                </div>
+
+                <!-- Etapa 4: Pagamento (Atualizada para incluir Stripe) -->
+               <!-- Etapa 4: Pagamento (Atualizada para incluir PayPal) -->
+<div class="step" data-step="4">
+    <div class="step-labels">
+        <span class="active">1. Serviço</span>
+        <span class="active">2. Horários</span>
+        <span class="active">3. Informações do Cliente</span>
+        <span class="active">4. Pagamento</span>
+        <span>5. Concluir</span>
+    </div>
+    <div class="progress-bar">
+        <div class="active" style="width: 80%;"></div>
+        <div class="inactive" style="width: 20%;"></div>
+    </div>
+    <p class="instruction">Por favor, informe como deseja efetuar o pagamento:</p>
+    <div class="payment-option">
+        <input type="radio" id="pay-local" name="payment" value="local" checked>
+        <label for="pay-local">Pagar no local</label>
+    </div>
+    <div class="payment-option">
+        <input type="radio" id="pay-online-stripe" name="payment" value="online-stripe">
+        <label for="pay-online-stripe">Pagar online (Cartão)</label>
+    </div>
+    <div class="payment-option">
+        <input type="radio" id="pay-online-paypal" name="payment" value="online-paypal">
+        <label for="pay-online-paypal">Pagar online (PayPal)</label>
+    </div>
+    <div id="card-element" style="display: none; margin-top: 20px;"></div>
+    <div id="paypal-button-container" style="display: none; margin-top: 20px;"></div>
+    <div id="payment-errors" style="color: #ff5555; margin-top: 10px;"></div>
+    <div class="btn-group">
+        <button class="btn-back" onclick="prevStep(3)">Voltar</button>
+        <button class="btn-next" onclick="confirmBooking()">Confirmar Agendamento</button>
+    </div>
+</div>
+
+                <!-- Etapa 5: Resumo -->
+                <div class="step" data-step="5">
+                    <div class="step-labels">
+                        <span class="active">1. Serviço</span>
+                        <span class="active">2. Horários</span>
+                        <span class="active">3. Informações do Cliente</span>
+                        <span class="active">4. Pagamento</span>
+                        <span class="active">5. Concluir</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="active" style="width: 100%;"></div>
+                    </div>
+                    <h3>Resumo do Agendamento</h3>
+                    <div class="summary">
+                        <p><strong>Serviço:</strong> <span id="summaryService"></span></p>
+                        <p><strong>Barbeiro:</strong> <span id="summaryBarber"></span></p>
+                        <p><strong>Data:</strong> <span id="summaryDate"></span></p>
+                        <p><strong>Horário:</strong> <span id="summaryTime"></span></p>
+                        <p><strong>Cliente:</strong> <span id="summaryClient"></span></p>
+                        <p><strong>Pagamento:</strong> <span id="summaryPayment"></span></p>
+                        <p><strong>Preço:</strong> <span id="summaryPrice"></span></p>
+                    </div>
+                    <div id="confirmationMessage" class="message" style="margin-top: 20px; display: none;"></div>
+                    <div class="btn-group">
+                        <button class="btn-back" onclick="prevStep(4)">Voltar</button>
+                        <button class="btn-confirm" onclick="saveBooking()">Confirmar e Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Inicializar Stripe Elements globalmente
+    const stripe = Stripe('pk_test_51R2bjN4K752cALOmpbz8e56YpNWrLezWX5XOHkoYP22RE876Bi8e0opMaG9VLlScmUaBQgki2LPt1ILbwCYIM6IB00iEcTI7TD'); // Chave pública de teste
+    let elements = stripe.elements();
+    window.cardElement = null; // Variável global para o cardElement
+
+    // Mostrar/esconder os elementos de pagamento com base na seleção
+    document.querySelectorAll('input[name="payment"]').forEach(input => {
+        input.addEventListener('change', (e) => {
+            const cardElementDiv = document.getElementById('card-element');
+            const paypalContainer = document.getElementById('paypal-button-container');
+            cardElementDiv.style.display = 'none';
+            paypalContainer.style.display = 'none';
+            paypalContainer.innerHTML = ''; // Limpar contêiner PayPal
+            document.getElementById('payment-errors').textContent = '';
+
+            if (e.target.value === 'online-stripe') {
+                cardElementDiv.style.display = 'block';
+                // Montar o cardElement imediatamente
+                if (window.cardElement) {
+                    window.cardElement.unmount();
+                }
+                window.cardElement = elements.create('card', {
+                    style: {
+                        base: {
+                            color: '#b3a29b',
+                            fontFamily: '"Poppins", sans-serif',
+                            fontSize: '14px',
+                            '::placeholder': {
+                                color: '#7a5a47'
+                            }
+                        },
+                        invalid: {
+                            color: '#ff5555',
+                            iconColor: '#ff5555'
+                        }
+                    }
+                });
+                window.cardElement.mount('#card-element');
+            } else if (e.target.value === 'online-paypal') {
+                paypalContainer.style.display = 'block';
+                renderPaypalButtons();
+            }
+        });
+    });
+    
+            // Carregar dados do usuário ao carregar a página
+            fetch('get-user-data.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.user) {
+                        window.userData = data.user;
+                        console.log('Dados do usuário carregados:', window.userData);
+                        populateClientForm();
+                        showBookingModal();
+                    } else {
+                        console.log('Erro ao carregar dados do usuário:', data.message);
+                        alert('Por favor, faça login para agendar.');
+                        window.location.href = 'login.html';
+                    }
+                    renderCalendar();
+                    initializePhoneInput();
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar sessão:', error);
+                    alert('Erro ao verificar sessão. Tente novamente.');
+                });
+    
+            // Gerenciar o dropdown do usuário
+            const userIcon = document.getElementById('userIcon');
+            const userDropdown = document.getElementById('userDropdown');
+            if (userIcon && userDropdown) {
+                userIcon.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    userDropdown.classList.toggle('active');
+                });
+                document.addEventListener('click', (e) => {
+                    if (!userIcon.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.classList.remove('active');
+                    }
+                });
+            }
+        });
+    
+        let selectedCategory = null;
+        let selectedService = null;
+        let selectedBarber = null;
+        let selectedDate = null;
+        let selectedTime = null;
+        let clientDetails = {};
+        let currentDate = new Date();
+        currentDate.setDate(1);
+    
+        const servicesByCategory = {
+            'cortes': [
+                { value: 'corte-simples', text: 'Corte Simples (10€)', duration: 30 },
+                { value: 'corte-criativo', text: 'Corte Criativo (Fade ou Degradê) (12€)', duration: 30 },
+                { value: 'buzz-cut', text: 'Buzz Cut (9€)', duration: 30 },
+                { value: 'corte-navalha', text: 'Corte à Navalha (12€)', duration: 30 },
+                { value: 'corte-freestyle', text: 'Corte FreeStyle (Com desenhos) (13€)', duration: 30 },
+                { value: 'sobrancelha', text: 'Sobrancelha (3€)', duration: 30 }
+            ],
+            'tratamento-corporal': [
+                { value: 'massagem-relaxante', text: 'Massagem Relaxante (20€)', duration: 30 }
+            ],
+            'lavagem-facial': [
+                { value: 'coloracao-lavagem', text: 'Coloração & Lavagem Facial (20€)', duration: 30 },
+                { value: 'mascara-preta', text: 'Máscara Preta & Lavagem Facial (35€)', duration: 30 }
+            ],
+            'barba': [
+                { value: 'barbear-lamina', text: 'Barbear à Lâmina (7€)', duration: 30 },
+                { value: 'barbear-maquina-tesoura', text: 'Barbear à Máquina & Tesoura (8€)', duration: 30 },
+                { value: 'barbear-criativo', text: 'Barbear Criativo (Fade & Desenho) (7€)', duration: 30 }
+            ],
+            'spa-de-beleza': [
+                { value: 'beleza-spa', text: 'Beleza & Spa (40€)', duration: 30 }
+            ]
+        };
+    
+        const barbers = {
+            '2': 'João',
+            '3': 'Pedro',
+            '4': 'Carlos'
+        };
+    
+        function selectCategory(category) {
+            selectedCategory = category;
+            const serviceSelect = document.getElementById('serviceSelect');
+            serviceSelect.disabled = false;
+            serviceSelect.innerHTML = '<option value="">Selecione serviço</option>';
+            servicesByCategory[category].forEach(service => {
+                const option = document.createElement('option');
+                option.value = service.value;
+                option.text = service.text;
+                serviceSelect.appendChild(option);
+            });
+            selectedService = null;
+            selectedBarber = null;
+            updateButtons(1);
+            document.querySelector('[data-step="1"] .instruction').textContent = 'Por favor, escolha um serviço:';
+        }
+    
+        function selectService(service) {
+            selectedService = service;
+            updateButtons(1);
+            document.querySelector('[data-step="1"] .instruction').textContent = 'Por favor, escolha um serviço:';
+        }
+    
+        function selectBarber(barber) {
+            selectedBarber = barber;
+            const barberOptions = document.querySelectorAll('.barber-option');
+            barberOptions.forEach(option => option.classList.remove('selected'));
+            event.target.closest('.barber-option').classList.add('selected');
+            updateButtons(1);
+            renderCalendar();
+            if (selectedDate) updateTimeSlots();
+            document.querySelector('[data-step="1"] .instruction').textContent = 'Por favor, escolha um serviço:';
+        }
+    
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            const monthYear = document.getElementById('monthYear');
+            calendar.innerHTML = '';
+    
+            const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            days.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day');
+                dayElement.textContent = day;
+                dayElement.style.fontWeight = 'bold';
+                dayElement.style.color = '#fff';
+                calendar.appendChild(dayElement);
+            });
+    
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const monthName = new Intl.DateTimeFormat('pt', { month: 'long' }).format(currentDate);
+            monthYear.textContent = `${monthName} ${year}`;
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+    
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day', 'disabled');
+                calendar.appendChild(emptyDay);
+            }
+    
+            if (selectedBarber) {
+                const startDate = new Date(year, month, 1).toISOString().split('T')[0];
+                const endDate = new Date(year, month + 1, 0).toISOString().split('T')[0];
+                fetch(`check-availability.php?barber=${encodeURIComponent(selectedBarber)}&startDate=${startDate}&endDate=${endDate}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const availableDays = data.success ? data.availableDays || [] : [];
+                        for (let day = 1; day <= daysInMonth; day++) {
+                            const date = new Date(year, month, day);
+                            const dateStr = date.toISOString().split('T')[0];
+                            const dayElement = document.createElement('div');
+                            dayElement.classList.add('calendar-day');
+                            dayElement.textContent = day;
+    
+                            if (date < today) {
+                                dayElement.classList.add('disabled');
+                            } else if (!availableDays.includes(dateStr)) {
+                                dayElement.classList.add('unavailable');
+                            } else if (date.toDateString() === today.toDateString()) {
+                                dayElement.classList.add('today');
+                                dayElement.onclick = () => selectDate(date);
+                            } else {
+                                dayElement.onclick = () => selectDate(date);
+                            }
+                            calendar.appendChild(dayElement);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao verificar dias disponíveis:', error);
+                        for (let day = 1; day <= daysInMonth; day++) {
+                            const date = new Date(year, month, day);
+                            const dayElement = document.createElement('div');
+                            dayElement.classList.add('calendar-day');
+                            dayElement.textContent = day;
+                            if (date < today) dayElement.classList.add('disabled');
+                            else dayElement.onclick = () => selectDate(date);
+                            if (date.toDateString() === today.toDateString()) dayElement.classList.add('today');
+                            calendar.appendChild(dayElement);
+                        }
+                    });
+            } else {
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(year, month, day);
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('calendar-day');
+                    dayElement.textContent = day;
+                    if (date < today) dayElement.classList.add('disabled');
+                    else dayElement.onclick = () => selectDate(date);
+                    if (date.toDateString() === today.toDateString()) dayElement.classList.add('today');
+                    calendar.appendChild(dayElement);
+                }
+            }
+            checkMonthNavigation();
+        }
+    
+        function prevMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+            if (selectedBarber) updateTimeSlots();
+        }
+    
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+            if (selectedBarber) updateTimeSlots();
+        }
+    
+        function checkMonthNavigation() {
+            const prevBtn = document.getElementById('prevMonthBtn');
+            const today = new Date();
+            prevBtn.disabled = (currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear());
+        }
+    
+        function selectDate(date) {
+            selectedDate = date;
+            document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected'));
+            event.target.classList.add('selected');
+            if (selectedBarber) updateTimeSlots();
+            updateButtons(2);
+        }
+    
+        function updateTimeSlots() {
+            const timeSlots = document.getElementById('timeSlots');
+            timeSlots.innerHTML = '';
+    
+            if (!selectedDate || !selectedBarber) {
+                timeSlots.innerHTML = '<p>Selecione um barbeiro e uma data para ver os horários disponíveis.</p>';
+                return;
+            }
+    
+            const dateStr = selectedDate.toISOString().split('T')[0];
+            const startHour = 9;
+            const endHour = 18;
+            const interval = 30;
+            const allTimes = [];
+            for (let hour = startHour; hour <= endHour; hour++) {
+                for (let minute = 0; minute < 60; minute += interval) {
+                    allTimes.push(`${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`);
+                }
+            }
+    
+            fetch(`check-availability.php?barber=${encodeURIComponent(selectedBarber)}&date=${encodeURIComponent(dateStr)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const bookedTimes = data.bookedTimes || [];
+                        allTimes.forEach(time => {
+                            const timeSlot = document.createElement('div');
+                            timeSlot.classList.add('time-slot');
+                            if (bookedTimes.includes(time)) {
+                                timeSlot.classList.add('unavailable');
+                            } else {
+                                timeSlot.onclick = () => selectTime(time);
+                            }
+                            timeSlot.innerHTML = `<label><input type="radio" name="time" value="${time}" ${bookedTimes.includes(time) ? 'disabled' : ''} onchange="selectTime('${time}')">${time}</label>`;
+                            timeSlots.appendChild(timeSlot);
+                        });
+                        updateStep2Instruction();
+                    } else {
+                        timeSlots.innerHTML = '<p style="color: #ff5555;">Erro ao carregar horários. Tente novamente.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar horários:', error);
+                    timeSlots.innerHTML = '<p style="color: #ff5555;">Erro ao carregar horários. Tente novamente.</p>';
+                });
+        }
+    
+        function selectTime(time) {
+            selectedTime = time;
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            const selectedSlot = Array.from(document.querySelectorAll('.time-slot')).find(slot => {
+                const radio = slot.querySelector('input[type="radio"]');
+                return radio && radio.value === time && radio.checked;
+            });
+            if (selectedSlot) selectedSlot.classList.add('selected');
+            updateButtons(2);
+        }
+    
+        function updateStep2Instruction() {
+            const barberName = selectedBarber ? barbers[selectedBarber] : 'Qualquer disponível';
+            const serviceName = servicesByCategory[selectedCategory].find(s => s.value === selectedService).text;
+            document.getElementById('step2Instruction').textContent = `Veja abaixo os horários disponíveis para ${serviceName} com ${barberName}. Clique no horário para prosseguir com sua reserva.`;
+        }
+    
+        function updateButtons(step) {
+            const step1Btn = document.querySelector('[data-step="1"] .btn-next');
+            const step2Btn = document.querySelector('[data-step="2"] .btn-next');
+            const step3Btn = document.querySelector('[data-step="3"] .btn-next');
+    
+            if (step === 1) {
+                step1Btn.disabled = !(selectedCategory && selectedService && selectedBarber);
+            } else if (step === 2) {
+                step2Btn.disabled = !(selectedDate && selectedTime);
+            } else if (step === 3) {
+                const form = document.getElementById('clientForm');
+                step3Btn.disabled = !form.checkValidity();
+            }
+        }
+    
+        function initializePhoneInput() {
+            const phoneInput = document.querySelector("#phone");
+            window.intlTelInput(phoneInput, {
+                initialCountry: "pt",
+                separateDialCode: true,
+                preferredCountries: ["pt", "br", "es", "fr"],
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+            document.getElementById("clientForm").addEventListener("input", updateClientFormValidation);
+        }
+    
+        function populateClientForm() {
+            if (window.userData) {
+                const form = document.getElementById('clientForm');
+                form.querySelector("#clientName").value = window.userData.name || "";
+                form.querySelector("#phone").value = window.userData.phone || "";
+                form.querySelector("#clientEmail").value = window.userData.email || "";
+                updateButtons(3);
+                updateClientDetails(); // Atualizar clientDetails com os valores do formulário
+            }
+        }
+    
+        function updateClientFormValidation() {
+            const form = document.getElementById("clientForm");
+            const nextBtn = document.querySelector('[data-step="3"] .btn-next');
+            const inputs = form.querySelectorAll('input');
+            let isValid = true;
+    
+            inputs.forEach(input => {
+                if (input.value.trim() === "" && input.hasAttribute('required')) {
+                    isValid = false;
+                }
+            });
+    
+            nextBtn.disabled = !isValid || !form.checkValidity();
+            if (isValid) {
+                updateStep3Instruction();
+                updateClientDetails(); // Atualizar clientDetails sempre que o formulário mudar
+            }
+        }
+    
+        function updateClientDetails() {
+            const form = document.getElementById('clientForm');
+            clientDetails = {
+                name: form.querySelector('#clientName').value.trim() || 'Não especificado',
+                phone: form.querySelector('#phone').value.trim() || 'Não especificado',
+                email: form.querySelector('#clientEmail').value.trim() || 'Não especificado'
+            };
+            console.log('clientDetails atualizado:', clientDetails); // Para depuração
+        }
+    
+        function validateClientFormOnSubmit() {
+            const form = document.getElementById("clientForm");
+            const inputs = form.querySelectorAll('input');
+            let isValid = true;
+    
+            inputs.forEach(input => {
+                if (input.value.trim() === "" && input.hasAttribute('required')) {
+                    input.classList.add('error');
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+    
+            if (isValid) {
+                updateClientDetails(); // Garantir que clientDetails esteja atualizado antes de submeter
+            }
+    
+            return isValid;
+        }
+    
+        function updateStep3Instruction() {
+            const barberName = selectedBarber ? barbers[selectedBarber] : 'Qualquer disponível';
+            const serviceName = servicesByCategory[selectedCategory].find(s => s.value === selectedService).text;
+            const dateStr = selectedDate.toLocaleDateString('pt-PT', { day: 'numeric', month: 'numeric', year: 'numeric' });
+            document.getElementById('step3Instruction').textContent = `Uma reserva para ${serviceName} com ${barberName} às ${selectedTime} em ${dateStr}. Por favor, forneça suas informações abaixo para concluir a reserva.`;
+        }
+    
+        function showBookingModal() {
+            document.getElementById('bookingModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            updateProgressBar(1);
+        }
+    
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            resetBooking();
+        }
+    
+        function resetBooking() {
+            selectedCategory = null;
+            selectedService = null;
+            selectedBarber = null;
+            selectedDate = null;
+            selectedTime = null;
+            clientDetails = {};
+            sessionStorage.removeItem('bookingData'); // Limpar sessionStorage
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.querySelector('[data-step="1"]').classList.add('active');
+            document.querySelectorAll('.calendar-day, .time-slot').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.select-box').forEach(select => select.selectedIndex = 0);
+            document.getElementById('serviceSelect').disabled = true;
+            document.getElementById('clientForm').reset();
+            updateProgressBar(1);
+            const messageDiv = document.getElementById('confirmationMessage');
+            messageDiv.style.display = 'none';
+            messageDiv.textContent = '';
+            const barberOptions = document.querySelectorAll('.barber-option');
+            barberOptions.forEach(option => option.classList.remove('selected'));
+            document.getElementById('card-element').style.display = 'none';
+            document.getElementById('card-errors').textContent = '';
+            document.getElementById('payment-errors').textContent = '';
+        }
+    
+        function nextStep(stepNumber) {
+            if (stepNumber === 2) {
+                if (selectedBarber) {
+                    fetch(`check-availability.php?barber=${encodeURIComponent(selectedBarber)}&checkGeneralAvailability=true`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success && data.hasAvailability) {
+                                document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+                                document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+                                updateProgressBar(stepNumber);
+                                updateTimeSlots();
+                            } else {
+                                document.querySelector('[data-step="1"] .instruction').style.color = '#ff5555';
+                                document.querySelector('[data-step="1"] .instruction').textContent = 'Não há horários disponíveis para este barbeiro nos próximos 30 dias. Por favor, escolha outro barbeiro.';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro ao verificar disponibilidade:', error);
+                            document.querySelector('[data-step="1"] .instruction').style.color = '#ff5555';
+                            document.querySelector('[data-step="1"] .instruction').textContent = 'Erro ao verificar disponibilidade. Tente novamente.';
+                        });
+                } else {
+                    document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+                    document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+                    updateProgressBar(stepNumber);
+                    updateTimeSlots();
+                }
+            } else if (stepNumber === 3) {
+                document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+                document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+                updateProgressBar(stepNumber);
+                populateClientForm();
+                updateStep3Instruction();
+                const inputs = document.querySelectorAll('#clientForm input');
+                inputs.forEach(input => input.classList.remove('error'));
+            } else if (stepNumber === 4) {
+                if (!validateClientFormOnSubmit()) {
+                    return;
+                }
+                document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+                document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+                updateProgressBar(stepNumber);
+            } else if (stepNumber === 5) {
+                document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+                document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+                updateProgressBar(stepNumber);
+                const messageDiv = document.getElementById('confirmationMessage');
+                messageDiv.style.display = 'none';
+                messageDiv.textContent = '';
+                updateSummary();
+            }
+        }
+    
+        function prevStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+            updateProgressBar(stepNumber);
+            if (stepNumber === 2) {
+                selectedTime = null;
+                document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+                updateButtons(2);
+            }
+            const messageDiv = document.getElementById('confirmationMessage');
+            messageDiv.style.display = 'none';
+            messageDiv.textContent = '';
+            if (stepNumber === 3) {
+                const inputs = document.querySelectorAll('#clientForm input');
+                inputs.forEach(input => input.classList.remove('error'));
+            }
+        }
+    
+        function updateProgressBar(step) {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            const labels = document.querySelectorAll('.step-labels span');
+            progressBars.forEach(bar => {
+                const activeWidth = step * 20;
+                bar.innerHTML = `<div class="active" style="width: ${activeWidth}%;"></div><div class="inactive" style="width: ${100 - activeWidth}%;"></div>`;
+            });
+            labels.forEach((label, index) => label.classList.toggle('active', index < step));
+        }
+    
+        function confirmBooking() {
+    const form = document.getElementById('clientForm');
+    if (!validateClientFormOnSubmit()) {
+        return;
+    }
+
+    updateClientDetails();
+
+    const serviceObj = servicesByCategory[selectedCategory].find(s => s.value === selectedService);
+    const priceText = serviceObj.text.match(/\(([\d.,]+€)\)/)[1];
+    const preco = parseFloat(priceText.replace('€', '').replace(',', '.'));
+
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    const barberName = selectedBarber ? barbers[selectedBarber] : 'Qualquer disponível';
+
+    const bookingData = {
+        barberId: selectedBarber || '0',
+        barberName: barberName,
+        service: selectedService,
+        date: selectedDate.toISOString().split('T')[0],
+        time: selectedTime,
+        payment: paymentMethod,
+        client: clientDetails,
+        preco: preco
+    };
+
+    if (paymentMethod === 'online-stripe') {
+        processOnlinePayment(bookingData); // Processa o pagamento sem avançar diretamente
+    } else if (paymentMethod === 'online-paypal') {
+        const storedBookingData = JSON.parse(sessionStorage.getItem('bookingData'));
+        if (!storedBookingData || !storedBookingData.paymentId) {
+            document.getElementById('payment-errors').textContent = 'Erro: Pagamento PayPal não concluído. Tente novamente.';
+            return;
+        }
+        bookingData.paymentId = storedBookingData.paymentId;
+        sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+        nextStep(5);
+    } else {
+        sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+        nextStep(5);
+    }
+}
+    
+        function renderPaypalButtons() {
+            const serviceObj = servicesByCategory[selectedCategory].find(s => s.value === selectedService);
+            const priceText = serviceObj.text.match(/\(([\d.,]+€)\)/)[1];
+            const preco = parseFloat(priceText.replace('€', '').replace(',', '.'));
+
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'gold',
+                    shape: 'rect',
+                    label: 'pay'
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: preco.toFixed(2),
+                                currency_code: 'EUR'
+                            },
+                            description: `Agendamento para ${serviceObj.text} em ${selectedDate.toLocaleDateString('pt-PT')} às ${selectedTime}`
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        const bookingData = {
+                            barberId: selectedBarber || '0',
+                            barberName: selectedBarber ? barbers[selectedBarber] : 'Qualquer disponível',
+                            service: selectedService,
+                            date: selectedDate.toISOString().split('T')[0],
+                            time: selectedTime,
+                            payment: 'online-paypal',
+                            client: clientDetails,
+                            preco: preco,
+                            paymentId: details.id
+                        };
+                        sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+                        document.getElementById('payment-errors').textContent = '';
+                        nextStep(5);
+                    });
+                },
+                onError: function(err) {
+                    document.getElementById('payment-errors').textContent = 'Erro ao processar o pagamento com PayPal. Tente novamente.';
+                    console.error('Erro no PayPal:', err);
+                }
+            }).render('#paypal-button-container');
+        }
+            
+        function processOnlinePayment(bookingData) {
+    if (!window.cardElement) {
+        document.getElementById('payment-errors').textContent = 'Erro: Campo do cartão não inicializado. Tente novamente.';
+        return;
+    }
+
+    const stripe = Stripe('pk_test_51R2bjN4K752cALOmpbz8e56YpNWrLezWX5XOHkoYP22RE876Bi8e0opMaG9VLlScmUaBQgki2LPt1ILbwCYIM6IB00iEcTI7TD');
+    stripe.createPaymentMethod({
+        type: 'card',
+        card: window.cardElement,
+        billing_details: {
+            name: bookingData.client.name,
+            email: bookingData.client.email,
+            phone: bookingData.client.phone
+        }
+    }).then((result) => {
+        if (result.error) {
+            document.getElementById('payment-errors').textContent = result.error.message;
+        } else {
+            fetch('process-payment.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    paymentMethodId: result.paymentMethod.id,
+                    amount: bookingData.preco * 100 // Enviar em centavos para o Stripe
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    bookingData.paymentId = data.data.paymentIntentId;
+                    sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+                    document.getElementById('payment-errors').textContent = '';
+                    nextStep(5);
+                } else {
+                    document.getElementById('payment-errors').textContent = data.message;
+                }
+            })
+            .catch(error => {
+                document.getElementById('payment-errors').textContent = 'Erro ao processar pagamento. Tente novamente.';
+                console.error('Erro:', error);
+            });
+        }
+    });
+}
+    
+        function updateSummary() {
+            const bookingData = JSON.parse(sessionStorage.getItem('bookingData'));
+            document.getElementById('summaryService').textContent = servicesByCategory[selectedCategory].find(s => s.value === selectedService).text;
+            document.getElementById('summaryBarber').textContent = bookingData.barberName;
+            document.getElementById('summaryDate').textContent = selectedDate.toLocaleDateString('pt-PT', { day: 'numeric', month: 'numeric', year: 'numeric' });
+            document.getElementById('summaryTime').textContent = selectedTime;
+            document.getElementById('summaryClient').textContent = `${bookingData.client.name} (${bookingData.client.phone}, ${bookingData.client.email})`;
+            document.getElementById('summaryPayment').textContent = bookingData.payment === 'local' ? 'Pagar no local' : 'Online';
+            document.getElementById('summaryPrice').textContent = `${bookingData.preco.toFixed(2)}€`;
+        }
+    
+        function saveBooking() {
+            const bookingData = JSON.parse(sessionStorage.getItem('bookingData'));
+            if (!bookingData) {
+                alert('Nenhum agendamento para salvar.');
+                console.error('Erro: bookingData não encontrado no sessionStorage');
+                return;
+            }
+    
+            // Verificar se paymentId está presente para pagamentos online
+            if ((bookingData.payment === 'online-stripe' || bookingData.payment === 'online-paypal') && !bookingData.paymentId) {
+                const messageDiv = document.getElementById('confirmationMessage');
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'message error';
+                messageDiv.textContent = 'Erro: ID de pagamento ausente para pagamento online.';
+                return;
+            }
+    
+            const messageDiv = document.getElementById('confirmationMessage');
+            messageDiv.style.display = 'block';
+            messageDiv.className = 'message success';
+            messageDiv.textContent = 'Aguarde, salvando o agendamento...';
+    
+            console.log('Dados enviados para o servidor:', bookingData);
+    
+            fetch('save-appointment.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingData)
+            })
+            .then(response => {
+                console.log('Status da resposta:', response.status);
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Resposta não é JSON: ' + contentType);
+                }
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Resposta do servidor:', data);
+                if (data.success) {
+                    messageDiv.className = 'message success';
+                    messageDiv.textContent = 'Agendamento salvo com sucesso!';
+                    setTimeout(() => {
+                        resetBooking();
+                        closeBookingModal();
+                    }, 3000);
+                } else {
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = data.message || 'Erro ao salvar o agendamento.';
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                fetch('save-appointment.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                })
+                .then(response => response.text())
+                .then(text => {
+                    console.log('Resposta bruta do servidor:', text);
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = `Erro ao conectar ao servidor: ${error.message}. Detalhes: ${text}. Tente novamente.`;
+                })
+                .catch(err => {
+                    console.error('Erro ao obter resposta bruta:', err);
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = `Erro ao conectar ao servidor: ${error.message}. Tente novamente.`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>

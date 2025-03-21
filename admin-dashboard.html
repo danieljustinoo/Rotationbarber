@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador - Rotation Barber</title>
+    <link rel="shortcut icon" href="Logotipo/LogoGrande.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4a3025 0%, #2c1f1a 100%);
+            color: #b3a29b;
+            padding: 30px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: #5a3f2f;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-header h1 {
+            color: #e58f65;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-header p {
+            color: #eda276;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #e58f65;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .users-list, .appointments-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .user-card, .appointment-card {
+            background: #4a3025;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .user-card:hover, .appointment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(237, 162, 118, 0.3);
+        }
+
+        .user-card img, .barber-image img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .user-card p, .appointment-card p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .user-card p strong, .appointment-card p strong {
+            color: #eda276;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            cursor: pointer;
+            background: #ff5555;
+            color: #fff;
+            border: none;
+        }
+
+        .action-btn:hover {
+            background: #cc4444;
+        }
+
+        .add-barber-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .add-barber-form input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #2c1f1a;
+            color: #b3a29b;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .add-barber-form button {
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background: #eda276;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-barber-form button:hover {
+            background: #b38062;
+        }
+
+        .logout {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .logout a {
+            color: #e58f65;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .logout a:hover {
+            color: #eda276;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .users-list, .appointments-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <img src="Logotipo/LogoGrande.png" alt="Rotation Barber Logo">
+            <h1>Painel do Administrador</h1>
+            <p>Bem-vindo, <span id="adminName"></span>!</p>
+        </div>
+
+        <div class="section">
+            <h2>Usuários</h2>
+            <div class="users-list" id="usersList"></div>
+        </div>
+
+        <div class="section">
+            <h2>Adicionar Barbeiro</h2>
+            <form class="add-barber-form" id="addBarberForm">
+                <input type="text" name="nome" placeholder="Nome do Barbeiro" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="senha" placeholder="Senha" required>
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Agendamentos</h2>
+            <div class="appointments-list" id="appointmentsList"></div>
+        </div>
+
+        <div class="logout">
+            <a href="logout.php">Sair</a>
+        </div>
+    </div>
+
+    <script>
+        // Verificar se o usuário é admin
+        fetch('check-session.php')
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success || data.role !== 'admin') {
+                    window.location.href = 'login.html';
+                } else {
+                    document.getElementById('adminName').textContent = data.user_name;
+                    loadUsers();
+                    loadAppointments();
+                }
+            });
+
+        // Carregar usuários
+        function loadUsers() {
+            fetch('get-users.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const usersList = document.getElementById('usersList');
+                        usersList.innerHTML = '';
+                        data.users.forEach(user => {
+                            const userCard = document.createElement('div');
+                            userCard.classList.add('user-card');
+                            userCard.innerHTML = `
+                                ${user.imagem && user.role === 'barbeiro' ? `<img src="${user.imagem}" alt="${user.nome}">` : ''}
+                                <p><strong>Nome:</strong> ${user.nome}</p>
+                                <p><strong>Email:</strong> ${user.email}</p>
+                                <p><strong>Papel:</strong> ${user.role}</p>
+                                ${user.role !== 'admin' ? `<button class="action-btn" onclick="deleteUser(${user.id})">Excluir</button>` : ''}
+                            `;
+                            usersList.appendChild(userCard);
+                        });
+                    }
+                });
+        }
+
+        // Carregar agendamentos
+        function loadAppointments() {
+            fetch('get-appointments.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const appointmentsList = document.getElementById('appointmentsList');
+                        appointmentsList.innerHTML = '';
+                        data.appointments.forEach(appointment => {
+                            const appointmentCard = document.createElement('div');
+                            appointmentCard.classList.add('appointment-card');
+                            appointmentCard.innerHTML = `
+                                <p><strong>ID:</strong> ${appointment.id}</p>
+                                <p><strong>Cliente:</strong> ${appointment.cliente}</p>
+                                <p><strong>Barbeiro:</strong> ${appointment.barbeiro}</p>
+                                <p><strong>Serviço:</strong> ${appointment.servico}</p>
+                                <p><strong>Data:</strong> ${appointment.data}</p>
+                                <p><strong>Horário:</strong> ${appointment.horario}</p>
+                                <p><strong>Pagamento:</strong> ${appointment.pagamento}</p>
+                                <button class="action-btn" onclick="cancelAppointment(${appointment.id})">Cancelar</button>
+                            `;
+                            appointmentsList.appendChild(appointmentCard);
+                        });
+                    }
+                });
+        }
+
+        // Adicionar barbeiro
+        document.getElementById('addBarberForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('add-barber.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    loadUsers();
+                    this.reset();
+                }
+            });
+        });
+
+        // Excluir usuário
+        function deleteUser(userId) {
+            if (confirm("Tem certeza que deseja excluir este usuário?")) {
+                fetch(`delete-user.php?id=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            loadUsers();
+                        }
+                    });
+            }
+        }
+
+        // Cancelar agendamento
+        function cancelAppointment(appointmentId) {
+            if (confirm("Tem certeza que deseja cancelar este agendamento?")) {
+                fetch(`cancel-appointment.php?id=${appointmentId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            loadAppointments();
+                        }
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

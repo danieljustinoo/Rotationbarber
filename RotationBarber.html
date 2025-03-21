@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotation Barber</title>
+    <link rel="shortcut icon" href="Logotipo/LogoGrande.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <script src="script.js" defer></script>
+</head>
+<body id="home">    
+<!-- /*--------------------------------*\
+  #BARRA DE CIMA
+\*-----------------------------------*/-->
+    <header>
+        <div class="logo">
+            <img src="Logotipo/LogoGrande.png">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Sobre Nós</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#pricing">Preços</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#team">Equipa</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #ENTRADA
+\*-----------------------------------*/-->
+<section class="hero">
+    <video autoplay muted loop class="background-video">
+        <source src="Midia/Vídeo sem título ‐ Feito com o Clipchamp.mp4" type="video/mp4">
+        Seu navegador não suporta o vídeo.
+    </video>
+    <div class="overlay"></div>
+    <div class="hero-text">
+        <h1>Rotation Barber</h1>
+        <p>"Aqui na Rotation Barber, entras um selvagem e sais um cavalheiro<br>– ou pelo menos pareces!"</p>
+        <a href="login.html" class="btn-mark-now">Marcar Agora</a>
+        <a href="maintenance.html" class="hero-icon"><img src="Icones/white-home.png" alt="Casa">Marcação Domiciliária</a>
+    </div>
+</section>
+
+    <div class="icons">
+        <a href="https://www.instagram.com" target="_blank"><img src="Icones/instagram-branco.png" alt="Instagram"></a>
+        <a href="https://www.messenger.com" target="_blank"><img src="Icones/messenger-braco.png" alt="Messeger"></a>
+        <a href="https://www.whatsapp.com" target="_blank"><img src="Icones/whatsapp-branco-1.png" alt="WhatsApp"></a>
+        <a href="https://www.youtube.com" target="_blank"><img src="Icones/icons8-youtube-700.png" alt="Youtube"></a>
+    </div>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #SOBRE NÓS
+\*-----------------------------------*/-->
+    <section id="about">
+        <div class="container">
+            <div class="left-orange-bar"></div>
+            <div class="about-content-wrapper">
+                <div class="about-image">
+                    <img src="Midia/ff754aaa5dcbe03d699c299d4fce81eb.jpg" alt="Imagem Sobre" class="about-img">
+                </div>
+                <div class="about-content">
+                    <div class="orange-line"></div>
+                    <h6 class="about-subtitle">Sobre Nós</h6>
+                    <h1 class="about-title">Rotation Barber</h1>
+                    <p class="about-text">Aqui na Rotation Barber, transformamos cortes de cabelo em experiências únicas. Com paixão e dedicação, oferecemos estilo e sofisticação para cada cliente.</p>
+                    <p class="about-text">Nossa equipe é especializada em cortes modernos e clássicos, sempre com um toque de humor e personalidade.</p>
+                    <img src="Midia/Rotation-Barber_ass.png" alt="Assinatura" class="signature">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #NOSSOS SERVIÇOS
+\*-----------------------------------*/-->
+<section id="servicos" class="services-container">
+    <div class="orange-line-services"></div>
+    <div class="services-subtitle">O que oferecemos?</div>
+    <h2 class="services-title">Nossos Serviços</h2>
+    <p class="services-description">
+        Proporcionamos uma experiência de barbearia única, combinando tradição e modernidade. Cuidamos do seu visual garantindo qualidade e conforto em cada serviço.
+    </p>
+
+    <div class="services-cards">
+        <div class="services-card">
+            <img src="Midia/Cut-bigode.jpg" alt="Hair Cutting">
+            <div class="services-card-content">
+                <h3>Aparar a Barba</h3>
+                <p>Modelamos a sua barba com precisão e cuidado, garantindo um visual elegante e bem cuidado que reflete a sua personalidade.</p>
+                <button class="read-more-btn" data-modal="hair-cutting-modal">LER MAIS →</button>
+            </div>
+        </div>
+
+        <div class="services-card">
+            <img src="Midia/wash.jpg" alt="Beard Trimming">
+            <div class="services-card-content">
+                <h3>Lavar o Cabelo</h3>
+                <p>Oferecemos um serviço de lavagem capilar com produtos de alta qualidade, garantindo limpeza profunda, hidratação e bem-estar.</p>
+                <button class="read-more-btn" data-modal="beard-trimming-modal">LER MAIS →</button>
+            </div>
+        </div>
+
+        <div class="services-card">
+            <img src="Midia/regua-tesoura.jpg" alt="Cold Shave">
+            <div class="services-card-content">
+                <h3>Barbear Clássico</h3>
+                <p>Desfrute de um barbear clássico com navalha, feito com produtos de qualidade para uma pele suave e um acabamento impecável.</p>
+                <button class="read-more-btn" data-modal="cold-shave-modal">LER MAIS →</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modais para cada serviço -->
+<div class="modal" id="hair-cutting-modal">
+    <div class="modal-content services-modal">
+        <span class="close-modal">×</span>
+        <div class="modal-text">
+            <h3>Aparar a Barba 🪒</h3>
+            <p>Começamos por definir o formato ideal para o seu rosto. Utilizamos uma máquina ou tesoura para ajustar o comprimento e garantir um acabamento limpo e uniforme. Finalizamos com óleo ou bálsamo para hidratar.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="beard-trimming-modal">
+    <div class="modal-content services-modal">
+        <span class="close-modal">×</span>
+        <div class="modal-text">
+            <h3>Lavar o Cabelo 💦</h3>
+            <p>Molhamos bem o cabelo, aplicamos um shampoo adequado ao seu tipo de fio e massajamos suavemente o couro cabeludo para remover impurezas. Depois, enxaguamos e aplicamos condicionador nas pontas para hidratar.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="cold-shave-modal">
+    <div class="modal-content services-modal">
+        <span class="close-modal">×</span>
+        <div class="modal-text">
+            <h3>Barbear Clássico ⚜️</h3>
+            <p>Começamos com uma toalha quente para abrir os poros e suavizar os pelos. Aplicamos espuma ou creme de barbear e utilizamos uma lâmina para um corte preciso. Finalizamos com aftershave para acalmar a pele.</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #PREÇOS
+\*-----------------------------------*/-->
+<section class="section pricing has-bg-image has-before" id="pricing" aria-label="pricing"
+    style="background-image: url('./assets/images/pricing-bg.jpg')">
+    <div class="container">
+        <h2 class="h2 section-title text-center">Tabela De Preços</h2>
+        <p class="section-text text-center">
+            Dê uma vista de olhos aos preços dos nossos serviços e escolha o que melhor se adapta às suas necessidades.
+        </p>
+        <div class="pricing-tab-container">
+            <ul class="tab-filter">
+                <li>
+                    <button class="filter-btn" data-filter-btn="all"> <!-- Removida a classe .active -->
+                        <div class="btn-icon">
+                            <i class="fas fa-th-large"></i>
+                        </div>
+                        <p class="btn-text">Todos</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="filter-btn active" data-filter-btn="shaving"> <!-- Adicionada a classe .active -->
+                        <div class="btn-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <p class="btn-text">Cortes</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="filter-btn" data-filter-btn="body-treatments">
+                        <div class="btn-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <p class="btn-text">Tratamento Corporal</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="filter-btn" data-filter-btn="face-washing">
+                        <div class="btn-icon">
+                            <i class="fas fa-face-smile"></i>
+                        </div>
+                        <p class="btn-text">Lavagem Facial</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="filter-btn" data-filter-btn="meditations">
+                        <div class="btn-icon">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </div>
+                        <p class="btn-text">Barba</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="filter-btn" data-filter-btn="beauty-spa">
+                        <div class="btn-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <p class="btn-text">Spa De Beleza</p>
+                    </button>
+                </li>
+            </ul>
+            <ul class="grid-list">
+                <li data-filter="shaving">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/pricing-1.jpg" width="90" height="90" alt="Corte Simples" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Corte Simples</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="10">10€</data>
+                    </div>
+                </li>
+                <li data-filter="shaving">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/degrade.png" width="90" height="90" alt="Corte Criativo (Fade ou Degradê)" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Corte Criativo (Fade ou Degradê)</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="12">12€</data>
+                    </div>
+                </li>
+                <li data-filter="shaving">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/buzzcut.png" width="90" height="90" alt="Buzz Cut" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Buzz Cut</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="9">9€</data>
+                    </div>
+                </li>
+                <li data-filter="shaving">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/corte navalha.png" width="90" height="90" alt="Corte à Navalha" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Corte à Navalha</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="12">12€</data>
+                    </div>
+                </li>
+                <li data-filter="shaving">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/freestyle.png" width="90" height="90" alt="Corte FreeStyle (Com desenhos)" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Corte FreeStyle (Com desenhos)</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="13">13€</data>
+                    </div>
+                </li>
+                <li data-filter="shaving">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/sombracelha.png" width="90" height="90" alt="Sobrancelha" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Sobrancelha</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="3">3€</data>
+                    </div>
+                </li>
+                <li data-filter="face-washing">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/hair color.png" width="90" height="90" alt="Hair Color & Wash" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Coloração & Lavagem Facial</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="20">20€</data>
+                    </div>
+                </li>
+                <li data-filter="body-treatments">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/body massage.png" width="90" height="90" alt="Massagem Relaxante" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Massagem Relaxante</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="20€">20€</data>
+                    </div>
+                </li>
+                <li data-filter="beauty-spa">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/Face Wash.png" width="90" height="90" alt="Beauty & Spa" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Beleza & Spa</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="40">40€</data>
+                    </div>
+                </li>
+                <li data-filter="face-washing">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/pricing-6.jpg" width="90" height="90" alt="Facial & Face Wash" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Máscara preta & Lavagem Facial</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="35">35€</data>
+                    </div>
+                </li>
+                <li data-filter="meditations">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/pricing-2.jpg" width="90" height="90" alt="Barbear à Lâmina" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Barbear à Lâmina</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="7">7€</data>
+                    </div>
+                </li>
+                <li data-filter="meditations">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/barbatesoura.png" width="90" height="90" alt="Barbear à Lâmina" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Barbear à Maquina & Tesoura</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="8">8€</data>
+                    </div>
+                </li>
+                <li data-filter="meditations">
+                    <div class="pricing-card">
+                        <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                            <img src="Midia/fade barba.png" width="90" height="90" alt="Barbear à Lâmina" class="img-cover">
+                        </figure>
+                        <div class="wrapper">
+                            <h3 class="h3 card-title">Barbear Criativo (Fade & Desenho)</h3>
+                            <p class="card-text">Concluido entre 30-40 minutes</p>
+                        </div>
+                        <data class="card-price" value="7">7€</data>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #GALERIA
+\*-----------------------------------*/-->
+<section class="section gallery" id="gallery" aria-label="photo gallery">
+    <div class="container">
+        <div class="title-wrapper">
+            <div>
+                <div class="orange-line-gallery"></div> <!-- Linha laranja adicionada -->
+                <h6 class="gallery-subtitle">Nossa Galeria</h6> <!-- Subtítulo em maiúsculas -->
+                <h2 class="h2 gallery-title">Fotos da Galeria</h2> <!-- Título ajustado -->
+                <p class="gallery-text">
+                    Descubra os nossos momentos! Cuidamos da sua autoestima com profissionalismo e dedicação.
+                </p>
+            </div>
+            <button class="btn-mark-now" id="openGalleryModal">
+                <span>Explorar Mais</span>
+            </button>
+        </div>
+        <ul class="grid-list">
+            <li>
+                <div class="gallery-card">
+                    <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                        <img src="Midia/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                    </figure>
+                    <div class="card-content">
+                        <h3 class="h3 card-title">Corte de cabelo</h3>
+                        <p class="card-text">Explorar Mais</p>
+                        <button class="card-btn" aria-label="Abrir Galeria">
+                            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <div class="gallery-card">
+                    <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                        <img src="Midia/Face.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                    </figure>
+                    <div class="card-content">
+                        <h3 class="h3 card-title">Lavagem</h3>
+                        <p class="card-text">Explorar Mais</p>
+                        <button class="card-btn" aria-label="Abrir Galeria">
+                            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="gallery-card">
+                    <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                        <img src="Midia/Beard.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                    </figure>
+                    <div class="card-content">
+                        <h3 class="h3 card-title">Barba</h3>
+                        <p class="card-text">Explorar Mais</p>
+                        <button class="card-btn" aria-label="Abrir Galeria">
+                            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="gallery-card">
+                    <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                        <img src="Midia/Galeria-mass.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                    </figure>
+                    <div class="card-content">
+                        <h3 class="h3 card-title">Meditação</h3>
+                        <p class="card-text">Explorar Mais</p>
+                        <button class="card-btn" aria-label="Abrir Galeria">
+                            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #A NOSSA EQUIPA
+\*-----------------------------------*/-->
+<section class="section team" id="team" aria-label="our team">
+    <div class="container">
+        <div class="title-wrapper">
+            <a href="login.html" class="btn-mark-now">Marcar Agora</a> 
+            <div>
+                <div class="orange-line-team"></div>
+                <h6 class="team-subtitle">Nossa Equipa</h6>
+                <h2 class="h2 team-title">Conheça a Nossa Equipa</h2>
+                <p class="team-text">
+                    Uma equipe dedicada a oferecer o melhor em serviços de barbearia e bem-estar.
+                </p>
+            </div>
+        </div>
+        <div class="team-list">
+            <div class="person" style="--color: #e58f65">
+                <div class="container"  onclick="redirectToBio('ricardo')">
+                    <div class="container-inner">
+                        <div class="circle"></div>
+                        <img src="Midia/Modelo.png" alt="Rosa Lewis">
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <h1>João Lopes</h1>
+                <p>Especialista em Corte e Estilo</p>
+            </div>
+            <div class="person" style="--color: #eda276">
+                <div class="container" onclick="redirectToBio('andre')">
+                    <div class="container-inner">
+                        <div class="circle"></div>
+                        <img src="Midia/Modelo2.png" alt="John Willis">
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <h1>Pedro Monteiro</h1>
+                <p>Barbeiro Profissional Sénior</p>
+            </div>
+            <div class="person" style="--color: #b38062">
+                <div class="container" onclick="redirectToBio('fang')">
+                    <div class="container-inner">
+                        <div class="circle"></div>
+                        <img src="Midia/Modelo3.png" alt="Sandy Rogers">
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <h1>Carlos Pereira</h1>
+                <p>Especialista em Barbear Clássico</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #REVIWES
+\*-----------------------------------*/-->
+<section class="section reviews" id="reviews" aria-label="client reviews">
+    <div class="container">
+        <div class="title-wrapper">
+            <div>
+                <div class="orange-line-reviews"></div>
+                <h6 class="reviews-subtitle">Nossas Reviews</h6>
+                <h2 class="h2 reviews-title">O Que Dizem Nossos Clientes</h2>
+                <p class="reviews-text">
+                    Veja o que nossos clientes têm a dizer sobre os serviços da Rotation Barber.
+                </p>
+            </div>
+        </div>
+        <div class="reviews-content">
+            <div class="swiper slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide review-item">
+                        <div class="info">
+                            <img src="Midia/reviews/download.jpg" alt="Rosy">
+                            <div class="name-job">
+                                <h3 class="name">Diogo Figueiras</h3>
+                                <span class="job">Youtuber</span>
+                            </div>
+                        </div>
+                        <p>
+                            "O melhor corte que já tive! A equipe é super atenciosa e o ambiente é incrível."
+                        </p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="swiper-slide review-item">
+                        <div class="info">
+                            <img src="Midia/reviews/DSC07603-1-1.png" alt="Joseph">
+                            <div class="name-job">
+                                <h3 class="name">Júlio Marques Lopes</h3>
+                                <span class="job">Cantor</span>
+                            </div>
+                        </div>
+                        <p>
+                            "Serviço impecável e um corte que durou semanas. Recomendo a todos!"
+                        </p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <div class="swiper-slide review-item">
+                        <div class="info">
+                            <img src="Midia/reviews/original.webp" alt="Laila">
+                            <div class="name-job">
+                                <h3 class="name">Cristiano Ronaldo</h3>
+                                <span class="job">Atleta</span>
+                            </div>
+                        </div>
+                        <p>
+                            "Adorei a experiência na Rotation Barber. Voltarei com certeza!"
+                        </p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="swiper-slide review-item">
+                        <div class="info">
+                            <img src="Midia/reviews/hq720.jpg" alt="John">
+                            <div class="name-job">
+                                <h3 class="name">Matheus Aguiar</h3>
+                                <span class="job">Cantor</span>
+                            </div>
+                        </div>
+                        <p>
+                            "Um lugar onde você se sente em casa. Corte perfeito e atendimento top!"
+                        </p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #RODAPÉ
+\*-----------------------------------*/-->
+<footer class="footer" id="footer">
+    <div class="container">
+        <div class="footer-content">
+            <!-- Coluna 1: Logotipo e Descrição -->
+            <div class="footer-column footer-logo">
+                <img src="Logotipo/LogoGrande.png" alt="Rotation Barber Logo" class="footer-logo-img">
+                <p class="footer-text">
+                    Na Rotation Barber, transformamos cortes em experiências únicas com estilo e sofisticação.
+                </p>
+            </div>
+
+            <!-- Coluna 2: Links Sociais -->
+            <div class="footer-column footer-social">
+                <h3 class="footer-title">Siga-nos</h3>
+                <ul class="social-links">
+                    <li><a href="https://www.instagram.com" target="_blank"><img src="Icones/instagram-branco.png" alt="Instagram"> Instagram</a></li>
+                    <li><a href="https://www.messenger.com" target="_blank"><img src="Icones/messenger-braco.png" alt="Messenger"> Messenger</a></li>
+                    <li><a href="https://www.whatsapp.com" target="_blank"><img src="Icones/whatsapp-branco-1.png" alt="WhatsApp"> WhatsApp</a></li>
+                    <li><a href="https://www.youtube.com" target="_blank"><img src="Icones/icons8-youtube-700.png" alt="YouTube"> YouTube</a></li>
+                </ul>
+            </div>
+
+            <!-- Coluna 3: Marcação -->
+            <div class="footer-column footer-booking">
+                <h3 class="footer-title">Marcação</h3>
+                <p class="footer-text">Agende seu horário agora mesmo!</p>
+                <a href="login.html" class="btn-mark-now">Marcar Agora</a>
+            </div>
+
+            <!-- Coluna 4: Subscrição -->
+            <div class="footer-column footer-subscribe">
+                <h3 class="footer-title">Subscreva</h3>
+                <p class="footer-text">Receba nossas novidades e promoções.</p>
+                <form class="subscribe-form" action="subscribe.php" method="post">
+                    <input type="email" name="email" placeholder="Seu email" required>
+                    <button type="submit"><ion-icon name="paper-plane-outline"></ion-icon></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Rotation Barber. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+</a>
+
+
+
+
+
+<!-- /*--------------------------------*\
+  #Galeria
+\*-----------------------------------*/-->
+<div class="modal" id="galleryModal">
+    <div class="modal-content full-gallery">
+        <span class="close-modal">×</span>
+        <div class="container">
+            <div class="title-wrapper">
+                <div>
+                    <div class="orange-line-gallery"></div>
+                    <h6 class="gallery-subtitle">Nossa Galeria Completa</h6>
+                    <h2 class="h2 gallery-title">Explore Nossa Galeria</h2>
+                    <p class="gallery-text">
+                        Veja mais do nosso trabalho e inspire-se com os cortes e estilos que definem a Rotation Barber.
+                    </p>
+                </div>
+            </div>
+            <ul class="grid-list">
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Corte Clássico</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/gallery-2.jpg" width="422" height="550" loading="lazy" alt="Hair Styling" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Estilo Moderno</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/gallery-3.jpg" width="422" height="550" loading="lazy" alt="Beard Trim" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Aparar Barba</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/gallery-4.jpg" width="422" height="550" loading="lazy" alt="Fade Cut" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Corte Fade</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/bc9959687202d1410d4a07830c4c64d1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Corte e Finalização</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Corte e Finalização</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/gallery-2.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Corte e Finalização</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/gallery-3.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Corte e Finalização</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="gallery-card">
+                        <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                            <img src="Midia/Galeria-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                            <h3 class="h3 card-title">Corte e Finalização</h3>
+                            <p class="card-text">Rotation Barber</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
